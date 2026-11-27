@@ -1,0 +1,11 @@
+route:
+  receiver: everyone
+  group_by: ["..."]        # every label combination = its own notification
+  group_wait: 0s
+  group_interval: 10s
+  repeat_interval: 1m      # and again, every minute
+receivers:
+  - name: everyone
+    webhook_configs:
+      - url: http://webhook:8080/everyone
+        send_resolved: true

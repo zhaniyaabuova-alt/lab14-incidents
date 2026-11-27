@@ -1,0 +1,15 @@
+groups:
+  - name: starter
+    rules:
+      - alert: TargetDown
+        expr: up == 0
+        for: 30s
+        labels: { severity: page }
+        annotations:
+          summary: "{{ $labels.job }} is down"
+      # Written in a hurry during the last incident. Everybody mutes it.
+      - alert: ErrorsDetected
+        expr: rate(http_requests_total{status=~"5.."}[1m]) > 0
+        labels: { severity: page }
+        annotations:
+          summary: "errors!!!"
